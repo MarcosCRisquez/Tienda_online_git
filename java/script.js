@@ -47,6 +47,7 @@ function updateCartDisplay() {
     if(totalEl) totalEl.innerText = total.toFixed(2) + '€';
 }
 
+/* PARTE DE DARIO */
 function toggleCart() {
     document.getElementById('sidebar-cart').classList.toggle('active');
 }
@@ -98,3 +99,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+/* PARTE DE DARIO HASTA AQUI */
