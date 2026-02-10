@@ -50,3 +50,51 @@ function updateCartDisplay() {
 function toggleCart() {
     document.getElementById('sidebar-cart').classList.toggle('active');
 }
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Quitar Loader
+    const loader = document.getElementById('loader');
+    setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 800);
+    }, 1500);
+
+    // 2. Animación entrada Hero
+    const heroTitle = document.getElementById('hero-title');
+    setTimeout(() => {
+        heroTitle.style.transition = "all 1s ease";
+        heroTitle.style.opacity = "1";
+        heroTitle.style.transform = "translateY(0)";
+    }, 2000);
+
+    // 3. Scroll Reveal para las cartas del menú
+    const observerOptions = {
+        threshold: 0.2
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, observerOptions);
+
+    const cards = document.querySelectorAll('.coffee-card');
+    cards.forEach(card => {
+        observer.observe(card);
+    });
+
+    // 4. Efecto de cambio de Navbar al hacer scroll
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            nav.style.padding = "10px 50px";
+            nav.style.background = "#1a1a1a";
+        } else {
+            nav.style.padding = "20px 50px";
+            nav.style.background = "rgba(26, 26, 26, 0.9)";
+        }
+    });
+});
