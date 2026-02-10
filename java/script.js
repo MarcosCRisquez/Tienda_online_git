@@ -100,3 +100,93 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 /* PARTE DE DARIO HASTA AQUI */
+
+
+/* PARTE DE CHEMA */
+// Menú móvil
+document.getElementById('mobile-menu').addEventListener('click', function() {
+    document.querySelector('.nav-menu').classList.toggle('active');
+});
+
+// Cerrar menú al hacer clic en un enlace
+document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', function() {
+        document.querySelector('.nav-menu').classList.remove('active');
+    });
+});
+
+// Smooth scroll para enlaces internos
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        if(this.getAttribute('href') === '#') return;
+        
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if(targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Efecto de scroll en el header
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if(window.scrollY > 100) {
+        header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+        header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+    } else {
+        header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+        header.style.backgroundColor = 'var(--white)';
+    }
+});
+
+// Animación para las tarjetas de té al hacer scroll
+function animateOnScroll() {
+    const teaCards = document.querySelectorAll('.tea-card');
+    
+    teaCards.forEach(card => {
+        const cardPosition = card.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if(cardPosition < screenPosition) {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }
+    });
+}
+
+// Inicializar la opacidad de las tarjetas
+document.querySelectorAll('.tea-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+});
+
+// Ejecutar animación al cargar y al hacer scroll
+window.addEventListener('load', animateOnScroll);
+window.addEventListener('scroll', animateOnScroll);
+
+// Añadir funcionalidad a los botones
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        // Efecto de pulsación
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 150);
+        
+        // Si es un botón de reserva, mostrar mensaje
+        if(this.textContent.includes('Reserva') || this.textContent.includes('Reservar')) {
+            e.preventDefault();
+            alert('¡Gracias por tu interés! Serás redirigido a nuestro sistema de reservas.');
+            // En una implementación real, aquí iría el código para redirigir al formulario de reservas
+        }
+    });
+});
+/* PARTE DE DARIO HASTA AQUI */
